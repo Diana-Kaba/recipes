@@ -22,7 +22,7 @@ const ReciepItem = (props) => {
       >
         ❤
       </button>
-    </div>
+      </div>
   );
 };
 

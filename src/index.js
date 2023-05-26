@@ -115,7 +115,7 @@ const App = () => {
         <div className="row justify-content-center">
           {visibleRecipes.map((recipe) => {
             return (
-              <div key={recipe.id} className="col-sm-4 col-12">
+              <div key={recipe.id} className="col-sm-6 col-md-4 col-lg-4">
                 <div className="card text-center my-5 p-3" id="recip-item">
                   <RecipItem
                     recipe={recipe}
