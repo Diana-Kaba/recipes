@@ -8,8 +8,7 @@ import "./index.css";
 import RecipItem from "./RecipItem.jsx";
 import Image from "./Image.jsx";
 import SearchPanel from "./SearchPanel.jsx";
-import SortPanel from "./SortPanel.jsx";
-import SortPrice from "./SortPrice";
+import Sort from "./Sort";
 
 const App = () => {
   const [recipes, setRecipes] = useState(recipesData);
@@ -82,12 +81,17 @@ const App = () => {
     setTerm(term);
   };
 
-  const onUpdateSortByName = (isChecked) => {
-    setIsSortByName(isChecked);
-  };
-
-  const onUpdateSortByPrice = (isChecked) => {
-    setIsSortByPrice(isChecked);
+  const handleSortChange = (sortBy) => {
+    if (sortBy === "name") {
+      setIsSortByName(true);
+      setIsSortByPrice(false);
+    } else if (sortBy === "price") {
+      setIsSortByName(false);
+      setIsSortByPrice(true);
+    } else {
+      setIsSortByName(false);
+      setIsSortByPrice(false);
+    }
   };
 
   const visibleRecipes = sortRecipes(searchRecipe(recipes, term));
@@ -102,16 +106,10 @@ const App = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-3 my-3">
-            <SortPanel onUpdateSortByName={onUpdateSortByName} />
+          <div className="col-2 my-3">
+            <Sort onSortChange={handleSortChange} />
           </div>
         </div>
-        <div className="row">
-          <div className="col-3 my-3">
-            <SortPrice onUpdateSortByPrice={onUpdateSortByPrice} />
-          </div>
-        </div>
-
         <div className="row justify-content-center">
           {visibleRecipes.map((recipe) => {
             return (
@@ -230,11 +228,11 @@ const Header = (props) => {
                   width="16"
                   height="16"
                   fill="currentColor"
-                  class="bi bi-arrow-down"
+                  className="bi bi-arrow-down"
                   viewBox="0 0 16 16"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
                   />
                 </svg>
@@ -260,11 +258,11 @@ const Footer = (props) => {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-arrow-up"
+                className="bi bi-arrow-up"
                 viewBox="0 0 16 16"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
                 />
               </svg>
@@ -301,7 +299,7 @@ const Sum = (props) => {
   }
   return (
     <div>
-      <span class="badge bg-success">${sum.toFixed(2)}</span>
+      <span className="badge bg-success">${sum.toFixed(2)}</span>
     </div>
   );
 };
